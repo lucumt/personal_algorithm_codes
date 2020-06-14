@@ -18,40 +18,49 @@
 
 # 实现代码
 ```javascript
-	function printNodeByZOrder(node){
-	   var stack1=[],stack2 = [];
-	   var useStack1=false;
-	   stack1.push(node);
-	   while(true){
-		   if(!useStack1 && stack1.length!=0){
-		   	  var node = stack1.pop();
-			  document.write(node.name + " ");
-			  if(!!node.left){
-				stack2.push(node.left);
-			  }
-			  if(!!node.right){
-				stack2.push(node.right);
-			  }
-			  if(stack1.length==0){
-				useStack1=true;
-		      }
-		   }
-		   if(useStack1 && stack2.length !=0){
-		      var node = stack2.pop();
-			  document.write(node.name + " ");
-			  if(!!node.right){
-				stack1.push(node.right);
-			  }
-			  if(!!node.left){
-				stack1.push(node.left);
-			  }
-			  if(stack2.length==0){
-				useStack1=false;
-			  }
-		   }
-		   if(stack1.length==0&&stack2.length==0){
-			  break;
-		   }
+//二叉树的基本结构
+function Node(name){
+   this.name = name;
+   this.left = null;
+   this.right = null;
+}
+
+function printNodeByZOrder(node){
+   var stack1=[],stack2 = [];
+   var useStack1=false;
+   stack1.push(node);
+   while(true){
+	   if(!useStack1 && stack1.length!=0){
+		  var node = stack1.pop();
+		  document.write(node.name + " ");
+		  if(!!node.left){
+			stack2.push(node.left);
+		  }
+		  if(!!node.right){
+			stack2.push(node.right);
+		  }
+		  if(stack1.length==0){
+			useStack1=true;
+	      }
 	   }
-	}
+	   if(useStack1 && stack2.length !=0){
+	      var node = stack2.pop();
+		  document.write(node.name + " ");
+		  if(!!node.right){ //注意此时要先存入右节点、然后存入左节点
+			stack1.push(node.right);
+		  }
+		  if(!!node.left){
+			stack1.push(node.left);
+		  }
+		  if(stack2.length==0){
+			useStack1=false;
+		  }
+	   }
+	   
+	   //两个栈都为空时，循环结束
+	   if(stack1.length==0&&stack2.length==0){
+		  break;
+	   }
+   }
+}
 ```
