@@ -43,3 +43,41 @@ function findQueue(row,arr){
 findQueue(0,new Array(8));
 ``` 
 ## Java实现
+```java
+public class NQueueTest {
+
+    private static final int MAX = 8;
+    private static int count = 0;
+
+    public static void main(String[] args) {
+        int[] arr = new int[MAX];
+        printQueue(0, arr);
+    }
+
+    public static void printQueue(int row, int[] arr) {
+        if (row == MAX) {
+            System.out.println("--------------------" + (++count) + "------------------------");
+            for (int a : arr) {
+                System.out.print(a + " ");
+            }
+            System.out.println();
+            return;
+        }
+        for (int i = 0; i < MAX; i++) {
+            arr[row] = i;
+            if (isValid(row, arr)) {
+                printQueue(row + 1, arr);
+            }
+        }
+    }
+
+    public static boolean isValid(int row, int[] arr) {
+        for (int i = 0; i < row; i++) {
+            if (arr[i] == arr[row] || Math.abs(arr[i] - arr[row]) == Math.abs(i - row)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
